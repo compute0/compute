@@ -1,10 +1,8 @@
 %{
-#include <stdio.h>
 #include <errno.h>
 #include "symbol.h"
 extern double dpow();
 extern double dfact();
-extern void push();
 %}
 
 %union { double val; symbol *sym; }
@@ -31,7 +29,6 @@ statement:
   if (!s) 
     execerr("cannot find p", NULL);
   s->u.val = $2; printf("  %.8g\n", $2);
-  push($2);
 }
 ;
 
@@ -72,6 +69,7 @@ expr: NUMBER
 ;
 %%
 
+#include <stdio.h>
 #include <ctype.h>
 #include <signal.h>
 #include <setjmp.h>

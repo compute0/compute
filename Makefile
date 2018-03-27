@@ -18,7 +18,7 @@ warn-auto.sh conf-ld
 	( cat warn-auto.sh; \
 	echo 'main="$$1"; shift'; \
 	echo exec "`head -1 conf-ld`" \
-	'-o "$$main" "$$main".o $${1+"$$@"}' \
+	  '-o "$$main" "$$main".o $${1+"$$@"}' -lm \
 	) > load
 	chmod 755 load
 
@@ -64,10 +64,6 @@ math.o: \
 compile math.c
 	./compile math.c
 
-stack.o: \
-compile stack.c
-	./compile stack.c
-
 symbol.o: \
 compile symbol.c symbol.h y.tab.h
 	./compile symbol.c
@@ -79,6 +75,6 @@ compile y.tab.c symbol.h grammar.y
 	./compile y.tab.c
 
 compute: \
-load y.tab.o symbol.o math.o init.o stack.o
-	./load y.tab symbol.o math.o init.o stack.o
+load y.tab.o symbol.o math.o init.o
+	./load y.tab symbol.o math.o init.o
 	mv y.tab compute

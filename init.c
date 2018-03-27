@@ -10,8 +10,8 @@ extern double dexp();
 extern double dsqrt();
 extern double dinteger();
 extern double dfact();
-extern double pop();
-extern void init_stack();
+
+/* fix bug */
 
 static struct {
   char *name;
@@ -39,7 +39,6 @@ static struct {
   { "abs", fabs },
   { "rand", drand },
   { "fact", dfact },
-  { "pop", pop },
   { 0, 0 }
 };
 
@@ -56,7 +55,6 @@ int isreadonly(char *s)
 void init(void)
 {
   int i; symbol *s;
-  init_stack();
 
   for (i=0; cons[i].name; ++i)
     install(cons[i].name, VAR, cons[i].cval);
